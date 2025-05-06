@@ -32,6 +32,5 @@ class ChatRepositoryImpl(
         } catch (e: Exception) {
             ApiState.Error(e.message)
         }
-
     }
 }
