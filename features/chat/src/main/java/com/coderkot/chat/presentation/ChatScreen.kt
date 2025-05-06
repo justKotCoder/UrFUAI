@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 fun ChatScreen() {
     Scaffold() { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-            Text("Hello Chat!")
+            Text("Hello Chat!!")
         }
     }
 }
