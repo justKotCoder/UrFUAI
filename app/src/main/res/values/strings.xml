@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">UrFU AI</string>
+    <string name="home_title">Home</string>
+    <string name="chat_title">UrFU AI</string>
+    <string name="brs_title">BRS</string>
 </resources>

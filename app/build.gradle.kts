@@ -46,6 +46,8 @@ dependencies {
     implementation(project(":features:home"))
     implementation(project(":features:chat"))
     implementation(project(":features:brs"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:utils"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)

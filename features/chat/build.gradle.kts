@@ -38,6 +38,7 @@ android {
 
 dependencies {
 
+    implementation(libs.commonmark)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
@@ -48,6 +49,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(project(":core:utils"))
+    implementation(project(":core:ui"))
     implementation(libs.koin.compose)
     implementation(libs.retrofit2)
     implementation(libs.moshi.converter)
