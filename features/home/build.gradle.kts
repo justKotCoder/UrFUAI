@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.compose)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)

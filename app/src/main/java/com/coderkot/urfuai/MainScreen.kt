@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.createGraph
 import com.coderkot.brs.BrsScreen
 import com.coderkot.chat.presentation.ChatScreen
-import com.coderkot.home.HomeScreen
+import com.coderkot.home.presentation.screen.HomeScreen
 import com.coderkot.urfuai.navigation.BottomNavigationBar
 import com.coderkot.urfuai.navigation.Screen
 
@@ -26,7 +26,7 @@ fun MainScreen() {
         val graph =
             navController.createGraph(startDestination = Screen.Home.route) {
                 composable(route = Screen.Home.route) {
-                    HomeScreen()
+                    HomeScreen(navController = navController)
                 }
                 composable(route = Screen.BRS.route) {
                     BrsScreen()

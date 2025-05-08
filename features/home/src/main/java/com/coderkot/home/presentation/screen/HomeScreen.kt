@@ -1,32 +1,22 @@
 package com.coderkot.home.presentation.screen
 
-import HomeViewModel
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.coderkot.home.domain.model.HomeItem
-import com.coderkot.home.presentation.components.BRSCard
-import com.coderkot.home.presentation.components.ChatBotCard
-import com.coderkot.home.presentation.components.NewsCard
-import com.coderkot.home.presentation.components.ScheduleCard
-import com.coderkot.home.presentation.components.SettingsCard
+import com.coderkot.home.presentation.components.*
 import com.coderkot.home.presentation.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
-// features/home/presentation/screen/HomeScreen.kt
 @Composable
 fun HomeScreen(
     navController: NavController,
@@ -35,12 +25,12 @@ fun HomeScreen(
     val state by viewModel.state.collectAsState()
 
     when (state) {
-        is HomeState.Loading -> LoadingView()
-        is HomeState.Success -> {
-            val items = (state as HomeState.Success).items
+        is HomeViewModel.HomeState.Loading -> LoadingView()
+        is HomeViewModel.HomeState.Success -> {
+            val items = (state as HomeViewModel.HomeState.Success).items
             HomeContent(items = items, navController = navController)
         }
-        is HomeState.Error -> ErrorView((state as HomeState.Error).message)
+        is HomeViewModel.HomeState.Error -> ErrorView((state as HomeViewModel.HomeState.Error).message)
     }
 }
 
@@ -55,27 +45,25 @@ private fun HomeContent(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items.forEach { item ->
-            item {
-                when (item) {
-                    is HomeItem.Schedule -> ScheduleCard(
-                        item = item,
-                        onClick = { navController.navigate("schedule/${item.id}") }
-                    )
-                    is HomeItem.News -> NewsCard(
-                        item = item,
-                        onClick = { navController.navigate("news/${item.id}") }
-                    )
-                    is HomeItem.ChatBot -> ChatBotCard(
-                        onClick = { navController.navigate("chat") }
-                    )
-                    is HomeItem.BRS -> BRSCard(
-                        onClick = { navController.navigate("brs") }
-                    )
-                    is HomeItem.Settings -> SettingsCard(
-                        onClick = { navController.navigate("settings") }
-                    )
-                }
+        items(items) { item ->
+            when (item) {
+                is HomeItem.Schedule -> ScheduleCard(
+                    item = item,
+                    onClick = { navController.navigate("schedule/${item.id}") }
+                )
+                is HomeItem.News -> NewsCard(
+                    item = item,
+                    onClick = { navController.navigate("news/${item.id}") }
+                )
+                is HomeItem.ChatBot -> ChatBotCard(
+                    onClick = { navController.navigate("chat") }
+                )
+                is HomeItem.BRS -> BRSCard(
+                    onClick = { navController.navigate("brs") }
+                )
+                is HomeItem.Settings -> SettingsCard(
+                    onClick = { navController.navigate("settings") }
+                )
             }
         }
     }

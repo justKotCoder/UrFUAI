@@ -1,3 +1,5 @@
+package com.coderkot.home.presentation.viewmodel
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coderkot.home.domain.model.HomeItem
@@ -7,10 +9,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-// features/home/presentation/viewmodel/HomeViewModel.kt
 class HomeViewModel(
     private val repository: HomeRepository
 ) : ViewModel() {
+    sealed class HomeState {
+        object Loading : HomeState()
+        data class Success(val items: List<HomeItem>) : HomeState()
+        data class Error(val message: String) : HomeState()
+    }
+
     private val _state = MutableStateFlow<HomeState>(HomeState.Loading)
     val state: StateFlow<HomeState> = _state.asStateFlow()
 
@@ -23,14 +30,8 @@ class HomeViewModel(
             _state.value = try {
                 HomeState.Success(repository.getHomeItems())
             } catch (e: Exception) {
-                HomeState.Error(e.message ?: "Не удалось загрузить данные")
+                HomeState.Error(e.message ?: "Unknown error")
             }
         }
     }
-}
-
-sealed class HomeState {
-    object Loading : HomeState()
-    data class Success(val items: List<HomeItem>) : HomeState()
-    data class Error(val message: String) : HomeState()
 }
