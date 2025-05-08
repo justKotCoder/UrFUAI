@@ -1,6 +1,7 @@
 package com.coderkot.urfuai.app
 
 import android.app.Application
+import com.coderkot.chat.di.chatModule
 import com.coderkot.home.di.homeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -14,7 +15,8 @@ class UrFUApplication : Application() {
             androidLogger(Level.ERROR)
             androidContext(this@UrFUApplication)
             modules(
-                homeModule
+                homeModule,
+                chatModule
             )
         }
     }
