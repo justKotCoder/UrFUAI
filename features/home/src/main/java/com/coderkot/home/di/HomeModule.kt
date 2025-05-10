@@ -1,6 +1,6 @@
 package com.coderkot.home.di
 
-import HomeRepositoryImpl
+import com.coderkot.home.data.HomeRepositoryImpl
 import com.coderkot.home.domain.repository.HomeRepository
 import com.coderkot.home.presentation.viewmodel.HomeViewModel
 import org.koin.core.module.dsl.viewModel

@@ -8,7 +8,9 @@ sealed class Screen(val route: String, @StringRes val titleRes: Int) {
     object Home : Screen("home", R.string.home_title)
     object ChatBot : Screen("chat_bot", R.string.chat_title)
     object BRS : Screen("brs", R.string.brs_title)
-//    object News : Screen("news", )
-//    object Settings : Screen("settings")
-//    object Schedule : Screen("schedule")
+    object Settings : Screen("settings", R.string.settings_title)
+
+    // Для параметризованных маршрутов
+    fun schedule(id: String) = "schedule/$id"
+    fun news(id: String) = "news/$id"
 }

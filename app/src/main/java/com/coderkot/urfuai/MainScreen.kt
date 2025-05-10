@@ -16,16 +16,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.createGraph
+import androidx.navigation.navArgument
 import com.coderkot.brs.BrsScreen
 import com.coderkot.chat.presentation.ChatScreen
 import com.coderkot.home.presentation.screen.HomeScreen
+import com.coderkot.schedule.presentation.ScheduleScreen
 import com.coderkot.urfuai.navigation.BottomNavigationBar
 import com.coderkot.urfuai.navigation.Screen
+import com.example.news.NewsScreen
+import com.example.settings.SettingsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,10 +39,19 @@ fun MainScreen() {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = { BottomNavigationBar(navController) },
+        bottomBar = {
+            // Показываем BottomBar только для основных экранов
+            if (currentDestination?.destination?.route in setOf(
+                    Screen.Home.route,
+                    Screen.BRS.route,
+                    Screen.ChatBot.route
+                )) {
+                BottomNavigationBar(navController)
+            }
+        },
         topBar = {
             currentDestination?.destination?.route?.let { currentRoute ->
-                if (currentRoute == "chat_bot") {
+                if (currentRoute == Screen.ChatBot.route) {
                     TopAppBar(
                         title = {
                             Row(
@@ -61,22 +74,46 @@ fun MainScreen() {
             }
         }
     ) { innerPadding ->
-        val graph =
-            navController.createGraph(startDestination = Screen.Home.route) {
-                composable(route = Screen.Home.route) {
-                    HomeScreen(navController = navController)
-                }
-                composable(route = Screen.BRS.route) {
-                    BrsScreen()
-                }
-                composable(route = Screen.ChatBot.route) {
-                    ChatScreen()
-                }
-            }
         NavHost(
             navController = navController,
-            graph = graph,
+            startDestination = Screen.Home.route,
             modifier = Modifier.padding(innerPadding)
-        )
+        ) {
+            // Основные экраны с BottomNavigation
+            composable(route = Screen.Home.route) {
+                HomeScreen(navController = navController)
+            }
+            composable(route = Screen.BRS.route) {
+                BrsScreen()
+            }
+            composable(route = Screen.ChatBot.route) {
+                ChatScreen()
+            }
+
+            // Экран расписания
+            composable(
+                route = "schedule/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { backStackEntry ->
+                ScheduleScreen(
+                    id = backStackEntry.arguments?.getString("id") ?: ""
+                )
+            }
+
+            // Экран новостей
+            composable(
+                route = "news/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { backStackEntry ->
+                NewsScreen(
+                    id = backStackEntry.arguments?.getString("id") ?: ""
+                )
+            }
+
+            // Экран настроек
+            composable("settings") {
+                SettingsScreen()
+            }
+        }
     }
 }

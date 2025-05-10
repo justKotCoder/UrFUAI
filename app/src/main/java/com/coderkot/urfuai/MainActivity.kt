@@ -9,8 +9,7 @@ import com.coderkot.urfuai.ui.theme.UrFUAITheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge(
-        )
+        enableEdgeToEdge()
         setContent {
             UrFUAITheme {
                 MainScreen()
