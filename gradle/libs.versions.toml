@@ -11,6 +11,7 @@ composeBom = "2024.09.00"
 koin_version = "4.0.4"
 ksp = "2.1.20-2.0.0"
 retrofit = "2.9.0"
+kotlin_serialization = "1.8.0"
 moshi = "2.9.0"
 appcompat = "1.7.0"
 material = "1.12.0"
@@ -40,6 +41,8 @@ retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref =
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 commonmark = { group = "com.halilibo.compose-richtext", name = "richtext-commonmark", version.ref = "commonmark" }
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin_serialization" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -47,4 +50,5 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 devToolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+
 

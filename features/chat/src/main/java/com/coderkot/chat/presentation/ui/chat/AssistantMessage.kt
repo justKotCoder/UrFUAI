@@ -27,11 +27,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.coderkot.chat.domain.model.ChatMessage
+import com.coderkot.chat.presentation.ChatMessageUi
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.ui.RichText
 
 @Composable
-fun AssistantMessage(message: ChatMessage) {
+fun AssistantMessage(message: ChatMessageUi) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start

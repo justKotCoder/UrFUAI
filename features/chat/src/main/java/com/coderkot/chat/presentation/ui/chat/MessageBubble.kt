@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.coderkot.chat.domain.model.ChatMessage
+import com.coderkot.chat.presentation.ChatMessageUi
 
 @Composable
-fun MessageBubble(message: ChatMessage) {
+fun MessageBubble(message: ChatMessageUi) {
     Box(
         modifier = Modifier
             .padding(8.dp)
