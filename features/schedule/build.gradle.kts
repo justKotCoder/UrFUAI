@@ -1,21 +1,18 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.coderkot.urfuai"
+    namespace = "com.example.schedule"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.coderkot.urfuai"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -27,6 +24,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        compose = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -34,23 +34,12 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
-    /* Koin */
-    implementation(libs.koin.compose)
 
-    implementation(project(":features:home"))
-    implementation(project(":features:chat"))
-    implementation(project(":features:brs"))
-    implementation(project(":features:news"))
-    implementation(project(":features:settings"))
-    implementation(project(":features:schedule"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:utils"))
+
+    implementation(libs.commonmark)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
@@ -60,6 +49,11 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(project(":core:utils"))
+    implementation(project(":core:ui"))
+    implementation(libs.koin.compose)
+    implementation(libs.retrofit2)
+    implementation(libs.moshi.converter)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
