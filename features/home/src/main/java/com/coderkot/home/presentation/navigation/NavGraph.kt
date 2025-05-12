@@ -10,21 +10,31 @@ import com.coderkot.home.presentation.screen.HomeScreen
 import com.coderkot.schedule.presentation.ScheduleScreen
 import com.example.news.NewsScreen
 import com.example.settings.SettingsScreen
-// features/home/presentation/navigation/NavGraph.kt
-fun NavGraphBuilder.mainNavGraph(navController: NavHostController) {
+fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
+    // Основной граф с BottomNavigation
     navigation(
         startDestination = "home",
         route = "main_route"
     ) {
         composable("home") { HomeScreen(navController) }
-        composable("schedule/{id}") { backStackEntry ->
-            ScheduleScreen(backStackEntry.arguments?.getString("id") ?: "")
-        }
-        composable("news/{id}") { backStackEntry ->
-            NewsScreen(backStackEntry.arguments?.getString("id") ?: "")
-        }
         composable("chat") { ChatScreen() }
         composable("brs") { BrsScreen() }
-        composable("settings") { SettingsScreen() }
+    }
+
+    // Отдельные экраны без BottomNavigation
+    composable("settings") {
+        SettingsScreen(
+            onBackClick = { navController.popBackStack() }
+        )
+    }
+    composable("schedule/{id}") { backStackEntry ->
+        ScheduleScreen(
+            onBackClick = { navController.popBackStack() }
+        )
+    }
+    composable("news/{id}") { backStackEntry ->
+        NewsScreen(
+            onBackClick = { navController.popBackStack() }
+        )
     }
 }

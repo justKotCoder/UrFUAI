@@ -95,9 +95,7 @@ fun MainScreen() {
                 route = "schedule/{id}",
                 arguments = listOf(navArgument("id") { type = NavType.StringType })
             ) { backStackEntry ->
-                ScheduleScreen(
-                    id = backStackEntry.arguments?.getString("id") ?: ""
-                )
+                ScheduleScreen( onBackClick = { navController.popBackStack() })
             }
 
             // Экран новостей
@@ -106,13 +104,12 @@ fun MainScreen() {
                 arguments = listOf(navArgument("id") { type = NavType.StringType })
             ) { backStackEntry ->
                 NewsScreen(
-                    id = backStackEntry.arguments?.getString("id") ?: ""
-                )
+                    onBackClick = { navController.popBackStack() })
             }
 
             // Экран настроек
             composable("settings") {
-                SettingsScreen()
+                SettingsScreen( onBackClick = { navController.popBackStack() })
             }
         }
     }

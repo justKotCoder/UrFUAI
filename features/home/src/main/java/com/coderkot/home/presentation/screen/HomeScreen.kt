@@ -49,23 +49,55 @@ fun HomeScreen(navController: NavController) {
             when (item) {
                 is HomeItem.Schedule -> ScheduleCard(
                     item = item,
-                    onClick = { navController.navigate("schedule/${item.time}") }
-                )
-                is HomeItem.News -> NewsCard(
-                    item = item,
-                    onClick = { navController.navigate("news/${item.id}") }
-                )
-                is HomeItem.ChatBot -> ChatBotCard(
-                    onClick = { navController.navigate("chat") }
-                )
-                is HomeItem.BRS -> BRSCard(
-                    onClick = { navController.navigate("brs") }
-                )
-                is HomeItem.Settings -> SettingsCard(
-                    onClick = { navController.navigate("settings") }
+                    onClick = {
+                        navController.navigate("schedule/${item.time}") {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                        }
+                    }
                 )
 
-                else -> {}
+                is HomeItem.News -> NewsCard(
+                    onClick = {
+                        navController.navigate("news/${item.id}") {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                        }
+                    }
+                )
+
+                is HomeItem.ChatBot -> ChatBotCard(
+                    onClick = {
+                        navController.navigate("chat") {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
+
+                is HomeItem.BRS -> BRSCard(
+                    onClick = {
+                        navController.navigate("brs") {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
+
+                is HomeItem.Settings -> SettingsCard(
+                    onClick = {
+                        navController.navigate("settings") {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                        }
+                    }
+                )
             }
         }
     }
