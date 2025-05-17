@@ -3,6 +3,7 @@ package com.coderkot.home.domain.model
 
 sealed class HomeItem {
     data class Schedule(
+        val id: String,
         val time: String,
         val subject: String,
         val type: String,

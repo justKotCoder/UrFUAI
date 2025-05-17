@@ -3,6 +3,9 @@ package com.coderkot.urfuai.app
 import android.app.Application
 import com.coderkot.chat.di.chatModule
 import com.coderkot.home.di.homeModule
+import com.example.schedule.di.dataModule
+import com.example.schedule.di.domainModule
+import com.example.schedule.di.presentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +19,10 @@ class UrFUApplication : Application() {
             androidContext(this@UrFUApplication)
             modules(
                 homeModule,
-                chatModule
+                chatModule,
+                presentationModule,
+                dataModule,
+                domainModule
             )
         }
     }

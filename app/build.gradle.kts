@@ -42,7 +42,6 @@ android {
 dependencies {
     /* Koin */
     implementation(libs.koin.compose)
-
     implementation(project(":features:home"))
     implementation(project(":features:chat"))
     implementation(project(":features:brs"))

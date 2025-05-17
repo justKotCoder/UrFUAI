@@ -21,6 +21,7 @@ import com.coderkot.home.presentation.components.SettingsCard
 fun HomeScreen(navController: NavController) {
     val mockItems = listOf(
         HomeItem.Schedule(
+            id = "12:00-13:30", // ← используем время или UUID, как тебе удобнее
             time = "12:00-13:30",
             subject = "Алгоритмы и анализ сложности",
             type = "Лабораторные занятия",
@@ -50,12 +51,13 @@ fun HomeScreen(navController: NavController) {
                 is HomeItem.Schedule -> ScheduleCard(
                     item = item,
                     onClick = {
-                        navController.navigate("schedule/${item.time}") {
+                        navController.navigate("schedule/1") {
                             popUpTo(navController.graph.startDestinationId) { saveState = true }
                             launchSingleTop = true
                         }
                     }
                 )
+
 
                 is HomeItem.News -> NewsCard(
                     onClick = {

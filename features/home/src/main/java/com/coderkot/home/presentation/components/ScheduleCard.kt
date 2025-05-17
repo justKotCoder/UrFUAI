@@ -23,7 +23,6 @@ fun ScheduleCard(
 ) {
     BaseCard(onClick = onClick, modifier = modifier) {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Header with title and arrow
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
@@ -106,7 +105,6 @@ fun ScheduleCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Location, teacher and group info
             InfoRow(
                 iconRes = R.drawable.home_geo,
                 text = item.location

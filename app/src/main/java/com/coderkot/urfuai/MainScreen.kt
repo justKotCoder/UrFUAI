@@ -25,10 +25,10 @@ import androidx.navigation.navArgument
 import com.coderkot.brs.BrsScreen
 import com.coderkot.chat.presentation.ChatScreen
 import com.coderkot.home.presentation.screen.HomeScreen
-import com.coderkot.schedule.presentation.ScheduleScreen
 import com.coderkot.urfuai.navigation.BottomNavigationBar
 import com.coderkot.urfuai.navigation.Screen
 import com.example.news.NewsScreen
+import com.example.schedule.presentation.screens.schedule.ScheduleScreen
 import com.example.settings.SettingsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,14 +40,7 @@ fun MainScreen() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            // Показываем BottomBar только для основных экранов
-            if (currentDestination?.destination?.route in setOf(
-                    Screen.Home.route,
-                    Screen.BRS.route,
-                    Screen.ChatBot.route
-                )) {
-                BottomNavigationBar(navController)
-            }
+            BottomNavigationBar(navController)
         },
         topBar = {
             currentDestination?.destination?.route?.let { currentRoute ->
@@ -95,8 +88,11 @@ fun MainScreen() {
                 route = "schedule/{id}",
                 arguments = listOf(navArgument("id") { type = NavType.StringType })
             ) { backStackEntry ->
-                ScheduleScreen( onBackClick = { navController.popBackStack() })
+                ScheduleScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
             }
+
 
             // Экран новостей
             composable(

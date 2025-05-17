@@ -9,6 +9,7 @@ class HomeRepositoryImpl : HomeRepository {
     override suspend fun getHomeItems(): List<HomeItem> {
         return listOf(
             HomeItem.Schedule(
+                id = "1",
                 time = "12:00-13:30",
                 subject = "Алгоритмы и анализ сложности",
                 type = "Лабораторные занятия",
