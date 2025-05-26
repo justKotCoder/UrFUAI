@@ -23,11 +23,11 @@ class HomeRepositoryImpl : HomeRepository {
                 content = "Параллельно с первым",
                 date = "02.04.2025"
             ),
-            HomeItem.ChatBot(
+            HomeItem.Chat(
                 title = "Чат-Бот"
             ),
-            HomeItem.BRS(
-                title = "БРС"
+            HomeItem.Tutor(
+                title = "Тьютор"
             ),
             HomeItem.Settings(
                 title = "Настройки"

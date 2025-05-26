@@ -4,12 +4,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.coderkot.brs.BrsScreen
+
 import com.coderkot.chat.presentation.ChatScreen
 import com.coderkot.home.presentation.screen.HomeScreen
 import com.example.news.NewsScreen
 import com.example.schedule.presentation.screens.schedule.ScheduleScreen
 import com.example.settings.SettingsScreen
+import com.example.tutor.TutorScreen
 
 fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
     // Основной граф с BottomNavigation
@@ -19,7 +20,7 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
     ) {
         composable("home") { HomeScreen(navController) }
         composable("chat") { ChatScreen() }
-        composable("brs") { BrsScreen() }
+        composable("news") { NewsScreen {  } }
     }
 
     composable("settings") {
@@ -32,8 +33,8 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
         ScheduleScreen(
             onBackClick = { navController.popBackStack() }) }
 
-    composable("news/{id}") { backStackEntry ->
-        NewsScreen(
+    composable("tutor") {
+        TutorScreen(
             onBackClick = { navController.popBackStack() }
         )
     }

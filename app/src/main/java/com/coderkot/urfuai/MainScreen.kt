@@ -22,7 +22,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.coderkot.brs.BrsScreen
 import com.coderkot.chat.presentation.ChatScreen
 import com.coderkot.home.presentation.screen.HomeScreen
 import com.coderkot.urfuai.navigation.BottomNavigationBar
@@ -76,8 +75,8 @@ fun MainScreen() {
             composable(route = Screen.Home.route) {
                 HomeScreen(navController = navController)
             }
-            composable(route = Screen.BRS.route) {
-                BrsScreen()
+            composable(route = Screen.News.route) {
+                NewsScreen(onBackClick = { navController.popBackStack() })
             }
             composable(route = Screen.ChatBot.route) {
                 ChatScreen()

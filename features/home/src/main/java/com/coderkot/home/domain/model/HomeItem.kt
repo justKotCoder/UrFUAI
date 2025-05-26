@@ -20,7 +20,7 @@ sealed class HomeItem {
         val date: String
     ) : HomeItem()
 
-    data class ChatBot(val title: String) : HomeItem()
-    data class BRS(val title: String) : HomeItem()
+    data class Chat(val title: String) : HomeItem()
     data class Settings(val title: String) : HomeItem()
+    data class Tutor(val title: String) : HomeItem()
 }

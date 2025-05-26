@@ -13,6 +13,6 @@ import androidx.compose.ui.unit.dp
 fun NewsScreen(onBackClick: () -> Unit) {
     // Содержимое экрана настроек
     Box(modifier = Modifier.padding(16.dp)) {
-        Text("Экран настроек")
+        Text("Экран новостей")
     }
 }

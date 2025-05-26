@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.coderkot.home.domain.model.HomeItem
-import com.coderkot.home.presentation.components.BRSCard
 import com.coderkot.home.presentation.components.ChatBotCard
 import com.coderkot.home.presentation.components.NewsCard
 import com.coderkot.home.presentation.components.ScheduleCard
 import com.coderkot.home.presentation.components.SettingsCard
+import com.coderkot.home.presentation.components.TutorCard
 
 // features/home/presentation/screen/HomeScreen.kt
 @Composable
@@ -30,14 +30,14 @@ fun HomeScreen(navController: NavController) {
             pairNumber = "4 пара",
             groupInfo = "Алгоритмы и анализ сложности ЛБ, К, АТ-05"
         ),
-        HomeItem.ChatBot("Чат-Бот"),
-        HomeItem.BRS("БРС"),
+        HomeItem.Chat("Чат-Бот"),
         HomeItem.News(
             id = "1",
             title = "Получение второго образования",
             date = "02.04.2025",
             content = "Параллельно с первым"
         ),
+        HomeItem.Tutor("Тьютор"),
         HomeItem.Settings("Настройки")
     )
 
@@ -61,14 +61,17 @@ fun HomeScreen(navController: NavController) {
 
                 is HomeItem.News -> NewsCard(
                     onClick = {
-                        navController.navigate("news/${item.id}") {
-                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        navController.navigate("news") {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
                             launchSingleTop = true
+                            restoreState = true
                         }
                     }
                 )
 
-                is HomeItem.ChatBot -> ChatBotCard(
+                is HomeItem.Chat -> ChatBotCard(
                     onClick = {
                         navController.navigate("chat") {
                             popUpTo(navController.graph.startDestinationId) {
@@ -79,18 +82,16 @@ fun HomeScreen(navController: NavController) {
                         }
                     }
                 )
-
-                is HomeItem.BRS -> BRSCard(
+                is HomeItem.Tutor -> TutorCard(
                     onClick = {
-                        navController.navigate("brs") {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
+                        navController.navigate("tutor") {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
                             launchSingleTop = true
-                            restoreState = true
                         }
                     }
                 )
+
+
 
                 is HomeItem.Settings -> SettingsCard(
                     onClick = {
@@ -100,6 +101,8 @@ fun HomeScreen(navController: NavController) {
                         }
                     }
                 )
+
+                else -> {}
             }
         }
     }
