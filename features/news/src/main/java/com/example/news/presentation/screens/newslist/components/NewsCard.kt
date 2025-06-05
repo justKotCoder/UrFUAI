@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.news.domain.model.News
 import org.threeten.bp.format.DateTimeFormatter
-
 @Composable
 fun NewsCard(
     news: News,
@@ -35,11 +34,6 @@ fun NewsCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(160.dp)
-                    .background(
-                        if (news.imageUrl != null) Color.Transparent
-                        else Color(0xFF939494)
-                    ),
-                contentAlignment = Alignment.BottomStart
             ) {
                 if (news.imageUrl != null) {
                     Image(
@@ -48,12 +42,20 @@ fun NewsCard(
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color(0xFF939494))
+                    )
                 }
 
+                // Переносим текстовый блок наверх
                 Column(
                     modifier = Modifier
+                        .align(Alignment.TopStart)
                         .fillMaxWidth()
-                        .background(Color.Black.copy(alpha = 0.5f))
+                        .background(Color(0xFF939494))
                         .padding(8.dp)
                 ) {
                     Text(

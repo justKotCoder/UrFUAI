@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.coderkot.home.domain.model.HomeItem
 import com.coderkot.home.presentation.components.ChatBotCard
 import com.coderkot.home.presentation.components.NewsCard
@@ -16,16 +17,10 @@ import com.coderkot.home.presentation.components.SettingsCard
 import com.coderkot.home.presentation.components.TutorCard
 
 @Composable
-fun HomeScreen(
-    onScheduleClick: () -> Unit,
-    onNewsClick: () -> Unit,
-    onChatClick: () -> Unit,
-    onTutorClick: () -> Unit,
-    onSettingsClick: () -> Unit
-) {
+fun HomeScreen(navController: NavController) {
     val mockItems = listOf(
         HomeItem.Schedule(
-            id = "12:00-13:30",
+            id = "12:00-13:30", // ← используем время или UUID, как тебе удобнее
             time = "12:00-13:30",
             subject = "Алгоритмы и анализ сложности",
             type = "Лабораторные занятия",
@@ -54,20 +49,59 @@ fun HomeScreen(
             when (item) {
                 is HomeItem.Schedule -> ScheduleCard(
                     item = item,
-                    onClick = onScheduleClick
+                    onClick = {
+                        navController.navigate("schedule/1") {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                        }
+                    }
                 )
+
+
                 is HomeItem.News -> NewsCard(
-                    onClick = onNewsClick
+                    onClick = {
+                        navController.navigate("main_route/news") {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
                 )
+
                 is HomeItem.Chat -> ChatBotCard(
-                    onClick = onChatClick
+                    onClick = {
+                        navController.navigate("chat") {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
                 )
                 is HomeItem.Tutor -> TutorCard(
-                    onClick = onTutorClick
+                    onClick = {
+                        navController.navigate("tutor") {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                        }
+                    }
                 )
+
+
+
                 is HomeItem.Settings -> SettingsCard(
-                    onClick = onSettingsClick
+                    onClick = {
+                        navController.navigate("settings") {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                        }
+                    }
                 )
+
+                else -> {}
             }
         }
     }

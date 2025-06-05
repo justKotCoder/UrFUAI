@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,50 +42,6 @@ fun SettingsScreen(onBackClick: () -> Boolean) {
             .background(Color(0xFFF5F6F7)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Card(
-            modifier = Modifier
-                .width(358.dp)
-                .height(239.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.White
-            )
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Профиль",
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 24.sp,
-                    color = Color(0xFF484C52),
-                    modifier = Modifier.padding(5.dp)
-                )
-                AsyncImage(
-                    model = "",
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(110.dp)
-                        .clip(RoundedCornerShape(60.dp))
-                        .border(
-                            width = 2.dp,
-                            color = Color.Red,
-                            shape = RoundedCornerShape(60.dp)
-                        ),
-                    contentScale = ContentScale.Crop
-                )
-                Text(
-                    text = "Ангелина Ерёмина",
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp,
-                    color = Color(0xFF484C52)
-                )
-                Text(
-                    text = "angelina.eremina@urfu.me",
-                    color = Color(0xFFEF4836)
-                )
-            }
-        }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -101,9 +58,10 @@ fun SettingsScreen(onBackClick: () -> Boolean) {
                     unfocusedIndicatorColor = Color.Transparent
                 ),
                 label = {
-                    Text(text = "Имя")
+                    Text(text = "ФИО")
                 }
             )
+            Spacer( modifier = Modifier.height(30.dp) )
 
             TextField(
                 value = "",
@@ -118,29 +76,13 @@ fun SettingsScreen(onBackClick: () -> Boolean) {
                     unfocusedIndicatorColor = Color.Transparent
                 ),
                 label = {
-                    Text(text = "Фамилия")
+                    Text(text = "РИ - ")
                 }
             )
+            Spacer( modifier = Modifier.height(30.dp) )
 
-            TextField(
-                value = "",
-                onValueChange = { },
-                modifier = Modifier
-                    .width(358.dp)
-                    .height(48.dp),
-                enabled = false,
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledContainerColor = Color.White,
-                    disabledIndicatorColor = Color.Transparent
-                ),
-                label = {
-                    Text(text = "angelina.eremina@urfu.me")
-                }
-            )
+
+
             Button(
                 onClick = { },
                 modifier = Modifier
@@ -178,3 +120,9 @@ fun SettingsScreen(onBackClick: () -> Boolean) {
     }
 }
 
+
+@Preview
+@Composable
+fun SettingsScreenPreview() {
+    SettingsScreen { false }
+}

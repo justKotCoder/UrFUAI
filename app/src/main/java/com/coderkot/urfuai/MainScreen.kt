@@ -14,6 +14,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -76,14 +78,13 @@ fun MainScreen() {
         ) {
             // Основные экраны с BottomNavigation
             composable(route = Screen.Home.route) {
-                HomeScreen(  onScheduleClick = { navController.navigate("schedule") },
-                    onNewsClick = { navController.navigate("news") },
-                    onChatClick = { navController.navigate("chat") },
-                    onTutorClick = { navController.navigate("tutor") },
-                    onSettingsClick = { navController.navigate("settings") })
+                HomeScreen(navController = navController)
             }
             composable(route = Screen.News.route) {
-                NewsScreen( onBackClick = { navController.popBackStack() } )
+                NewsScreen(
+                    onBackClick = { navController.popBackStack() },
+                    bottomBarVisible = remember { mutableStateOf(true) },
+                )
             }
             composable(route = Screen.ChatBot.route) {
                 ChatScreen()
@@ -105,7 +106,10 @@ fun MainScreen() {
                 route = "news/{id}",
                 arguments = listOf(navArgument("id") { type = NavType.StringType })
             ) { backStackEntry ->
-                NewsScreen( onBackClick = { navController.popBackStack() } )
+                NewsScreen(
+                    onBackClick = { navController.popBackStack()
+                        navController.navigate(Screen.Home.route) },
+                    bottomBarVisible = remember { mutableStateOf(false) })
             }
 
             // Экран настроек

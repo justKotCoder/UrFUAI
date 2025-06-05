@@ -39,19 +39,26 @@ class NewsRepositoryImpl(
     }
 
     private fun NewsDto.toDomain(): News {
-        val date = try {
-            LocalDate.parse(
-                this.date.substring(0, 10),
-                DateTimeFormatter.ISO_LOCAL_DATE
+        val dateTime = try {
+            org.threeten.bp.LocalDateTime.parse(
+                this.date,
+                DateTimeFormatter.ISO_DATE_TIME
             )
         } catch (e: Exception) {
-            LocalDate.now()
+            try {
+                org.threeten.bp.LocalDate.parse(
+                    this.date.substring(0, 10),
+                    DateTimeFormatter.ISO_LOCAL_DATE
+                ).atStartOfDay()
+            } catch (e: Exception) {
+                org.threeten.bp.LocalDateTime.now()
+            }
         }
 
         return News(
             id = id,
-            date = date,
-            title = text.take(50) + if (text.length > 50) "..." else "",
+            date = dateTime,
+            title = zagolovok,
             content = text,
             imageUrl = imageUrl
         )
