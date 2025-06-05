@@ -3,6 +3,7 @@ package com.coderkot.urfuai.app
 import android.app.Application
 import com.coderkot.chat.di.chatModule
 import com.coderkot.home.di.homeModule
+import com.example.news.di.newsModule
 import com.example.schedule.di.dataModule
 import com.example.schedule.di.domainModule
 import com.example.schedule.di.presentationModule
@@ -23,6 +24,7 @@ class UrFUApplication : Application() {
                 presentationModule,
                 dataModule,
                 domainModule,
+                newsModule
             )
         }
     }

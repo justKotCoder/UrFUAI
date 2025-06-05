@@ -1,5 +1,7 @@
 package com.coderkot.urfuai
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,10 +28,11 @@ import com.coderkot.chat.presentation.ChatScreen
 import com.coderkot.home.presentation.screen.HomeScreen
 import com.coderkot.urfuai.navigation.BottomNavigationBar
 import com.coderkot.urfuai.navigation.Screen
-import com.example.news.NewsScreen
+import com.example.news.presentation.screens.newslist.NewsScreen
 import com.example.schedule.presentation.screens.schedule.ScheduleScreen
 import com.example.settings.SettingsScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
@@ -73,10 +76,14 @@ fun MainScreen() {
         ) {
             // Основные экраны с BottomNavigation
             composable(route = Screen.Home.route) {
-                HomeScreen(navController = navController)
+                HomeScreen(  onScheduleClick = { navController.navigate("schedule") },
+                    onNewsClick = { navController.navigate("news") },
+                    onChatClick = { navController.navigate("chat") },
+                    onTutorClick = { navController.navigate("tutor") },
+                    onSettingsClick = { navController.navigate("settings") })
             }
             composable(route = Screen.News.route) {
-                NewsScreen(onBackClick = { navController.popBackStack() })
+                NewsScreen( onBackClick = { navController.popBackStack() } )
             }
             composable(route = Screen.ChatBot.route) {
                 ChatScreen()
@@ -98,8 +105,7 @@ fun MainScreen() {
                 route = "news/{id}",
                 arguments = listOf(navArgument("id") { type = NavType.StringType })
             ) { backStackEntry ->
-                NewsScreen(
-                    onBackClick = { navController.popBackStack() })
+                NewsScreen( onBackClick = { navController.popBackStack() } )
             }
 
             // Экран настроек

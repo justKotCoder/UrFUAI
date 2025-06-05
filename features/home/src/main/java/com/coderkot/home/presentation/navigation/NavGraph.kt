@@ -1,41 +1,56 @@
 package com.coderkot.home.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-
 import com.coderkot.chat.presentation.ChatScreen
 import com.coderkot.home.presentation.screen.HomeScreen
-import com.example.news.NewsScreen
+import com.example.news.presentation.screens.newslist.NewsScreen
 import com.example.schedule.presentation.screens.schedule.ScheduleScreen
 import com.example.settings.SettingsScreen
 import com.example.tutor.TutorScreen
+import org.koin.androidx.compose.koinViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
-    // Основной граф с BottomNavigation
     navigation(
         startDestination = "home",
         route = "main_route"
     ) {
-        composable("home") { HomeScreen(navController) }
-        composable("chat") { ChatScreen() }
-        composable("news") { NewsScreen {  } }
-    }
+        composable("home") {
+            HomeScreen(
+                onScheduleClick = { navController.navigate("schedule") },
+                onNewsClick = { navController.navigate("news") },
+                onChatClick = { navController.navigate("chat") },
+                onTutorClick = { navController.navigate("tutor") },
+                onSettingsClick = { navController.navigate("settings") }
+            )
+        }
 
-    composable("settings") {
-        SettingsScreen(
-            onBackClick = { navController.popBackStack() }
-        )
-    }
+        composable("chat") {
+            ChatScreen()
+        }
 
-    composable("schedule") {
-        ScheduleScreen(
-            onBackClick = { navController.popBackStack() }) }
+        composable("news") {
+            NewsScreen(
+                onBackClick = { navController.popBackStack() },
+                viewModel = koinViewModel()
+            )
+        }
 
-    composable("tutor") {
-        TutorScreen(
-            onBackClick = { navController.popBackStack() }
-        )
+        composable("schedule") {
+            ScheduleScreen(onBackClick = { navController.popBackStack() })
+        }
+
+        composable("settings") {
+            SettingsScreen(onBackClick = { navController.popBackStack() })
+        }
+
+        composable("tutor") {
+            TutorScreen(onBackClick = { navController.popBackStack() })
+        }
     }
 }
