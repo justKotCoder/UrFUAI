@@ -361,5 +361,5 @@ private fun ThemeCard(
 @Preview
 @Composable
 fun SettingsScreenPreview() {
-    ThemeSelectionDialog {  }
+    SettingsScreen {  true }
 }

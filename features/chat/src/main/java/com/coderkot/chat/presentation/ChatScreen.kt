@@ -56,7 +56,6 @@ fun ChatScreen(
         modifier = Modifier
             .background(Color(0xFFF5F6F7))
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
     ) {
         LazyColumn(
             modifier = Modifier

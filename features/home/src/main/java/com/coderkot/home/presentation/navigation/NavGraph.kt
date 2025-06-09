@@ -14,8 +14,7 @@ import com.coderkot.home.presentation.screen.HomeScreen
 import com.example.news.presentation.screens.newslist.NewsScreen
 import com.example.schedule.presentation.screens.schedule.ScheduleScreen
 import com.example.settings.SettingsScreen
-import com.example.tutor.TutorScreen
-
+import com.example.tutor.TutorDialog
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -51,8 +50,9 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
             onBackClick = { navController.popBackStack() }) }
 
     composable("tutor") {
-        TutorScreen(
-            onBackClick = { navController.popBackStack() }
+        TutorDialog(
+            onDismiss = { navController.popBackStack() },
+            onSubmit = { _, _ -> }
         )
     }
 }

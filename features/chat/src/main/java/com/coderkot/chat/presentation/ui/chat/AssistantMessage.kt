@@ -62,7 +62,11 @@ fun AssistantMessage(message: ChatMessage) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "${message.content}${".".repeat(dots)}",
+                    text = buildString {
+                        append(message.content.trimEnd('.'))
+                        append(".".repeat(dots))
+                    },
+
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     modifier = Modifier.alpha(alpha)
                 )
