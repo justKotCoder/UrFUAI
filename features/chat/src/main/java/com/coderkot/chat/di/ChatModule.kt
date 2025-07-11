@@ -1,5 +1,6 @@
 package com.coderkot.chat.di
 
+import androidx.lifecycle.SavedStateHandle
 import com.coderkot.chat.data.remote.api.ChatService
 import com.coderkot.chat.data.remote.api.JsonApi
 import com.coderkot.chat.data.repository.ChatRepositoryImpl
@@ -41,6 +42,7 @@ val chatModule = module {
 
     single { get<Retrofit>().create(ChatService::class.java) }
     single<ChatRepository> { ChatRepositoryImpl(get()) }
+
     single<JsonRepository> { JsonRepositoryImpl(get()) }
 
     single { GetResponseUseCase(get()) }
@@ -48,3 +50,8 @@ val chatModule = module {
 
     viewModel { ChatScreenViewModel(get(), get()) }
 }
+
+    single<GetResponseUseCase> { GetResponseUseCase(get()) }
+    viewModel { (state: SavedStateHandle) -> ChatScreenViewModel(state, get()) }
+}
+
