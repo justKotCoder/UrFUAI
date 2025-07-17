@@ -42,13 +42,12 @@ android {
 dependencies {
     /* Koin */
     implementation(libs.koin.compose)
-
     implementation(project(":features:home"))
     implementation(project(":features:chat"))
-    implementation(project(":features:brs"))
     implementation(project(":features:news"))
     implementation(project(":features:settings"))
     implementation(project(":features:schedule"))
+    implementation(project(":features:tutor"))
     implementation(project(":core:ui"))
     implementation(project(":core:utils"))
     implementation(libs.androidx.core.ktx)

@@ -3,4 +3,5 @@
     <string name="home_title">Home</string>
     <string name="chat_title">UrFU AI</string>
     <string name="brs_title">BRS</string>
+    <string name="settings_title">Settings</string>
 </resources>

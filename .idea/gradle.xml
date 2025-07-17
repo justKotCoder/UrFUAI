@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/features/news" />
             <option value="$PROJECT_DIR$/features/schedule" />
             <option value="$PROJECT_DIR$/features/settings" />
+            <option value="$PROJECT_DIR$/features/tutor" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

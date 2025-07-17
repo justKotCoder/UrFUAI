@@ -38,7 +38,11 @@ android {
 
 dependencies {
     implementation(libs.koin.compose)
-
+    implementation(project(":features:chat"))
+    implementation(project(":features:schedule"))
+    implementation(project(":features:news"))
+    implementation(project(":features:settings"))
+    implementation(project(":features:tutor"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.compose)

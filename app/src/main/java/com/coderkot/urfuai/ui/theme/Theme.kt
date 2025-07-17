@@ -3,6 +3,7 @@ package com.coderkot.urfuai.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -51,18 +52,29 @@ fun UrFUAITheme(
             isAppearanceLightNavigationBars = true
         }
     }
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            dynamicLightColorScheme(context)
+            dynamicLightColorScheme(context).copy(
+                background = Color(0xFFF5F6F7), // Фон экрана F5F6F7
+                surface = Color.White            // Карточки белые
+            )
         }
-
-        else -> LightColorScheme
+        else -> LightColorScheme.copy(
+            background = Color(0xFFF5F6F7),     // Фон экрана F5F6F7
+            surface = Color.White                // Карточки белые
+        )
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = {
+            Surface(
+                color = MaterialTheme.colorScheme.background, // Автоматически F5F6F7
+                content = content
+            )
+        }
     )
 }

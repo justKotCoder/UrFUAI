@@ -1,4 +1,9 @@
 package com.coderkot.urfuai
+
+
+import android.os.Build
+import androidx.annotation.RequiresApi
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,21 +16,27 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.createGraph
-import com.coderkot.brs.BrsScreen
+import androidx.navigation.navArgument
 import com.coderkot.chat.presentation.ChatScreen
 import com.coderkot.home.presentation.screen.HomeScreen
 import com.coderkot.urfuai.navigation.BottomNavigationBar
 import com.coderkot.urfuai.navigation.Screen
+import com.example.news.presentation.screens.newslist.NewsScreen
+import com.example.schedule.presentation.screens.schedule.ScheduleScreen
+import com.example.settings.SettingsScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
@@ -34,10 +45,12 @@ fun MainScreen() {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = { BottomNavigationBar(navController) },
+        bottomBar = {
+            BottomNavigationBar(navController)
+        },
         topBar = {
             currentDestination?.destination?.route?.let { currentRoute ->
-                if (currentRoute == "chat_bot") {
+                if (currentRoute == Screen.ChatBot.route) {
                     TopAppBar(
                         title = {
                             Row(
@@ -60,22 +73,51 @@ fun MainScreen() {
             }
         }
     ) { innerPadding ->
-        val graph =
-            navController.createGraph(startDestination = Screen.Home.route) {
-                composable(route = Screen.Home.route) {
-                    HomeScreen(navController = navController)
-                }
-                composable(route = Screen.BRS.route) {
-                    BrsScreen()
-                }
-                composable(route = Screen.ChatBot.route) {
-                    ChatScreen()
-                }
-            }
         NavHost(
             navController = navController,
-            graph = graph,
+            startDestination = Screen.Home.route,
             modifier = Modifier.padding(innerPadding)
-        )
+        ) {
+            // Основные экраны с BottomNavigation
+            composable(route = Screen.Home.route) {
+                HomeScreen(navController = navController)
+            }
+            composable(route = Screen.News.route) {
+                NewsScreen(
+                    onBackClick = { navController.popBackStack() },
+                    bottomBarVisible = remember { mutableStateOf(true) },
+                )
+            }
+            composable(route = Screen.ChatBot.route) {
+                ChatScreen()
+            }
+
+            // Экран расписания
+            composable(
+                route = "schedule/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { backStackEntry ->
+                ScheduleScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+
+
+            // Экран новостей
+            composable(
+                route = "news/{id}",
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { backStackEntry ->
+                NewsScreen(
+                    onBackClick = { navController.popBackStack()
+                        navController.navigate(Screen.Home.route) },
+                    bottomBarVisible = remember { mutableStateOf(false) })
+            }
+
+            // Экран настроек
+            composable("settings") {
+                SettingsScreen( onBackClick = { navController.popBackStack() })
+            }
+        }
     }
 }

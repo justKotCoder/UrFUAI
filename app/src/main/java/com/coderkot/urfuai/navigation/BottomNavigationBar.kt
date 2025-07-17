@@ -37,9 +37,9 @@ fun BottomNavigationBar(
             route = Screen.ChatBot.route
         ),
         NavigationItem(
-            title = "БРС",
-            icon = R.drawable.planet,
-            route = Screen.BRS.route
+            title = "Новости",
+            icon = R.drawable.news_ic,
+            route = Screen.News.route
         )
     )
 
